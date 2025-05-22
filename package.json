@@ -1,0 +1,42 @@
+{
+  "name": "git-curate",
+  "version": "1.0.0",
+  "description": "A CLI tool for curating Git branches and managing PRs",
+  "main": "dist/index.js",
+  "bin": {
+    "git-curate": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "yarn tsc",
+    "start": "node dist/index.js",
+    "package": "yarn build && yarn pkg . && yarn create-release-files",
+    "create-release-files": "node scripts/create-release-files.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["git", "cli", "pr", "curate"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "@inquirer/prompts": "^3.3.0",
+    "cli-spinner": "^0.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/cli-spinner": "^0.2.4",
+    "typescript": "^5.3.3",
+    "pkg": "^5.8.1",
+    "ts-node": "^10.9.2"
+  },
+  "pkg": {
+    "targets": [
+      "node18-macos-arm64",
+      "node18-macos-x64",
+      "node18-linux-x64",
+      "node18-linux-arm64",
+      "node18-win-x64",
+      "node18-win-arm64"
+    ],
+    "outputPath": "bin"
+  }
+} 
