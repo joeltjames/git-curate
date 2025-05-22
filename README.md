@@ -2,17 +2,26 @@
 
 A CLI tool for curating Git branches and managing PRs.
 
+[![npm version](https://img.shields.io/npm/v/git-curate.svg)](https://www.npmjs.com/package/git-curate)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
 ## Installation
 
+### Using yarn (recommended)
+```bash
+yarn global add git-curate
+```
+
+### Using npm
+```bash
+npm install -g git-curate
+```
+
+### Prerequisites
 1. Install the GitHub CLI (`gh`) and authenticate:
    ```bash
    brew install gh
    gh auth login
-   ```
-
-2. Install git-curate:
-   ```bash
-   yarn global add git-curate
    ```
 
 ## Usage
