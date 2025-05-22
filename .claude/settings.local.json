@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(yarn install)",
+      "Bash(yarn jest)",
+      "Bash(yarn add:*)",
+      "Bash(yarn jest:*)",
+      "Bash(yarn test:*)",
+      "Bash(yarn tsc:*)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(rm:*)",
+      "Bash(npm run build:*)",
+      "Bash(touch:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(yarn build)",
+      "Bash(npx tsc:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false
+}

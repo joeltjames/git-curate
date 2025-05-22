@@ -1,0 +1,78 @@
+{
+  "name": "git-curate",
+  "version": "1.0.0",
+  "description": "A CLI tool for curating Git branches and managing PRs",
+  "main": "dist/index.js",
+  "bin": {
+    "git-curate": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "yarn tsc",
+    "build:test": "yarn tsc -p tsconfig.test.json",
+    "start": "node dist/index.js",
+    "package": "yarn build && yarn pkg . && yarn create-release-files",
+    "create-release-files": "node scripts/create-release-files.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "yarn build"
+  },
+  "keywords": [
+    "git",
+    "cli",
+    "pr",
+    "curate"
+  ],
+  "author": {
+    "name": "J.T. James",
+    "email": "joeltjames@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeltjames/git-curate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joeltjames/git-curate/issues"
+  },
+  "homepage": "https://github.com/joeltjames/git-curate#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^3.3.0",
+    "cli-spinner": "^0.2.10",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/cli-spinner": "^0.2.3",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.11.24",
+    "jest": "^29.7.0",
+    "pkg": "^5.8.1",
+    "ts-jest": "^29.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "pkg": {
+    "targets": [
+      "node18-macos-arm64",
+      "node18-macos-x64",
+      "node18-linux-x64",
+      "node18-linux-arm64",
+      "node18-win-x64",
+      "node18-win-arm64"
+    ],
+    "outputPath": "bin",
+    "options": [
+      "--no-bytecode",
+      "--public-packages=*"
+    ],
+    "assets": [
+      "dist/**/*"
+    ]
+  }
+}
