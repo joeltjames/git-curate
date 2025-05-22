@@ -11,11 +11,29 @@
     "start": "node dist/index.js",
     "package": "yarn build && yarn pkg . && yarn create-release-files",
     "create-release-files": "node scripts/create-release-files.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "yarn build"
   },
   "keywords": ["git", "cli", "pr", "curate"],
-  "author": "",
+  "author": {
+    "name": "J.T. James",
+    "email": "joeltjames@gmail.com"
+  },
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeltjames/git-curate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joeltjames/git-curate/issues"
+  },
+  "homepage": "https://github.com/joeltjames/git-curate#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "commander": "^11.1.0",
     "@inquirer/prompts": "^3.3.0",
