@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
-    "@types/cli-spinner": "^0.2.4",
+    "@types/cli-spinner": "^0.2.3",
     "typescript": "^5.3.3",
     "pkg": "^5.8.1",
     "ts-node": "^10.9.2"
@@ -37,6 +37,13 @@
       "node18-win-x64",
       "node18-win-arm64"
     ],
-    "outputPath": "bin"
+    "outputPath": "bin",
+    "options": [
+      "--no-bytecode",
+      "--public-packages=*"
+    ],
+    "assets": [
+      "dist/**/*"
+    ]
   }
 } 
