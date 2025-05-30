@@ -20,7 +20,7 @@
     "commit": "git-cz",
     "commitlint": "commitlint --edit",
     "semantic-release": "semantic-release",
-    "prepare-release": "yarn build && yarn package && yarn semantic-release",
+    "prepare-release": "yarn build && yarn semantic-release",
     "prepublishOnly": "yarn build"
   },
   "keywords": [

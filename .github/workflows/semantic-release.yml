@@ -26,7 +26,6 @@ jobs:
         with:
           path: |
             dist
-            bin
           key: ${{ runner.os }}-build-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-build-
@@ -49,21 +48,11 @@ jobs:
             echo "Using cached build"
           fi
         
-      - name: Create binaries
-        run: |
-          if [ ! -d "bin" ] || [ -z "$(ls -A bin)" ]; then
-            echo "No cached binaries found, packaging from scratch"
-            yarn package
-          else
-            echo "Using cached binaries"
-          fi
-          
       - name: Save build cache
         uses: actions/cache/save@v3
         with:
           path: |
             dist
-            bin
           key: ${{ runner.os }}-build-${{ github.sha }}
         
       - name: Semantic Release
