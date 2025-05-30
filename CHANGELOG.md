@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/joeltjames/git-curate/compare/v1.0.0...v1.0.1) (2025-05-30)
+
+
+### Bug Fixes
+
+* add npm plugin to semantic-release config to update package.json version ([9c8e12f](https://github.com/joeltjames/git-curate/commit/9c8e12fed99215cc0d5d4e8b8ba2ff3d233dd6c2))
+
 # 1.0.0 (2025-05-30)
 
 
