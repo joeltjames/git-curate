@@ -27,13 +27,10 @@ This flow would also work well to create a new branch and merge in some in-fligh
 
 
 ## Installation
-
-### Using yarn (recommended)
 ```bash
 yarn global add git-curate
 ```
 
-### Using npm
 ```bash
 npm install -g git-curate
 ```
@@ -48,7 +45,7 @@ npm install -g git-curate
 ## Usage
 
 ```bash
-git-curate <target> [options]
+git curate <target> [options]
 ```
 
 ### Arguments
@@ -65,11 +62,6 @@ git-curate <target> [options]
 - `--help` - Display help information
 - `--version` - Display version information
 
-### Example
-
-```bash
-git-curate staging --base main --dry-run
-```
 
 ## Features
 
