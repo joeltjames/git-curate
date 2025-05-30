@@ -7,6 +7,25 @@ A CLI tool for curating Git branches and managing PRs.
 
 ![Demo](/images/demo.gif)
 
+## What is `git-curate?`
+
+`git-curate` is a CLI tool designed to streamline the process of rebasing and "curating" a branch.
+
+At [Planning Center](https://github.com/planningcenter), we use the `staging` branch as an integration environment. Team members regularly push work to `staging` so others can test, verify, and explore changes collaboratively. While this workflow is ergonomic and efficient, `staging` can become crowded over time.
+
+To keep things tidy, someone typically "resets" the branch — rebasing it onto `main` and selectively merging in relevant open GitHub PRs. While not difficult, this process can be tedious and doesn't always feel great.
+
+`git-curate` automates that workflow:
+- Rebases the target branch (e.g., staging) onto the base branch (e.g., `main`)
+- Fetches all open pull requests using the GitHub CLI (`gh`)
+- Lets you interactively select which PRs to merge
+- Merges the selected PRs
+- Optionally pushes the updated target branch to the remote
+
+
+This flow would also work well to create a new branch and merge in some in-flight PRs to start off at the right spot (vs having to manually curate that branch).
+
+
 ## Installation
 
 ### Using yarn (recommended)
