@@ -16,9 +16,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'yarn'
           
+      - name: Restore build cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            dist
+            bin
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+            
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         
@@ -32,4 +42,17 @@ jobs:
         run: yarn format:check
         
       - name: Build package
-        run: yarn build
+        run: |
+          if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+            echo "No cached build found, building from scratch"
+            yarn build
+          else
+            echo "Using cached build"
+          fi
+          
+      - name: Save build cache
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            dist
+          key: ${{ runner.os }}-build-${{ github.sha }}

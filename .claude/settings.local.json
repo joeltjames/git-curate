@@ -22,7 +22,9 @@
       "Bash(yarn lint:*)",
       "Bash(yarn format)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(yarn build:*)",
+      "Bash(NODE_OPTIONS=--experimental-vm-modules yarn test)"
     ]
   },
   "enableAllProjectMcpServers": false

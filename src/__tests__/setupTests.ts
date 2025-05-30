@@ -1,5 +1,10 @@
-import type { Logger, _CompletableTask } from '../logger';
 import { jest } from '@jest/globals';
+import type { Logger } from '../logger';
+import type { CancelablePromise } from '@inquirer/type';
+
+// Type definitions for test mocks
+export type SelectPromise = CancelablePromise<string>;
+export type CheckboxPromise = CancelablePromise<string[]>;
 
 // Mock modules that are used in tests
 jest.mock('child_process', () => ({
@@ -33,4 +38,4 @@ export const createMockLogger = (): Logger =>
       completeWithMessage: jest.fn(),
       fail: jest.fn(),
     })),
-  }) as unknown as Logger;
+  }) as Logger;

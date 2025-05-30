@@ -1,9 +1,9 @@
-import { jest } from '@jest/globals';
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import * as git from '../git';
 import type { Logger } from '../logger';
 import type { ExecFunction } from '../utils';
 import type { SelectFunction, WaitForEnterFunction } from '../interactions';
-import { createMockLogger } from '../__tests__/setupTests';
+import { createMockLogger } from './setupTests';
 
 // Mock the modules first
 jest.mock('child_process');
@@ -16,26 +16,25 @@ jest.mock('../interactions');
 describe('Git Module', () => {
   // Create mock functions
   const mockExecAsync = jest.fn() as jest.MockedFunction<ExecFunction>;
-  const mockSelect = jest.fn() as jest.MockedFunction<SelectFunction>;
   const mockWaitForEnter = jest.fn() as jest.MockedFunction<WaitForEnterFunction>;
 
   // Create a spy for resetBranch and mergePR
-  let _resetBranchSpy: jest.SpyInstance;
-  let _mergePRSpy: jest.SpyInstance;
-  let _handleMergeConflictSpy: jest.SpyInstance;
+  let _resetBranchSpy: any;
+  let _mergePRSpy: any;
+  let _handleMergeConflictSpy: any;
 
   let mockLogger: Logger;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
 
     // Setup mocks
-    // Use direct imports for mocking
     const util = await import('util');
     jest.spyOn(util, 'promisify').mockReturnValue(() => mockExecAsync);
 
     const inquirer = await import('@inquirer/prompts');
-    jest.spyOn(inquirer, 'select').mockImplementation(() => mockSelect);
+    const selectPromise = jest.fn() as unknown as any;
+    jest.spyOn(inquirer, 'select').mockReturnValue(selectPromise);
 
     // Create spies on the actual functions
     _resetBranchSpy = jest.spyOn(git, 'resetBranch');
@@ -105,7 +104,7 @@ describe('Git Module', () => {
     const mockSelectFn = jest.fn() as jest.MockedFunction<SelectFunction>;
     const mockWaitForEnterFn = jest.fn() as jest.MockedFunction<WaitForEnterFunction>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       mockExec.mockReset();
       mockSelectFn.mockReset();
       mockWaitForEnterFn.mockReset();

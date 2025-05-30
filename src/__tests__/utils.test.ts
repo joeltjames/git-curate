@@ -1,5 +1,6 @@
-import { jest } from '@jest/globals';
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { execAsync } from '../utils';
+import type { ExecFunction } from '../utils';
 
 // Mock modules
 jest.mock('child_process');
@@ -12,25 +13,26 @@ describe('Utils Module', () => {
 
   describe('execAsync', () => {
     it('should execute command and return stdout and stderr', async () => {
-      const mockExec = jest
-        .fn<typeof execAsync>()
-        .mockResolvedValue({ stdout: 'test output', stderr: '' });
-      const mockPromisify = jest.fn().mockReturnValue(mockExec);
+      const execResult = { stdout: 'test output', stderr: '' };
+      const mockExec = jest.fn<ExecFunction>().mockResolvedValue(execResult);
+
+      // Mock the util.promisify function
       const util = await import('util');
-      jest.spyOn(util, 'promisify').mockImplementation(mockPromisify);
+      jest.spyOn(util, 'promisify').mockReturnValue(mockExec);
 
       const result = await execAsync('test command');
 
-      expect(result).toEqual({ stdout: 'test output', stderr: '' });
+      expect(result).toEqual(execResult);
       expect(mockExec).toHaveBeenCalledWith('test command');
     });
 
     it('should handle command errors', async () => {
       const testError = new Error('Command failed');
-      const mockExec = jest.fn<typeof execAsync>().mockRejectedValue(testError);
-      const mockPromisify = jest.fn().mockReturnValue(mockExec);
+      const mockExec = jest.fn<ExecFunction>().mockRejectedValue(testError);
+
+      // Mock the util.promisify function
       const util = await import('util');
-      jest.spyOn(util, 'promisify').mockImplementation(mockPromisify);
+      jest.spyOn(util, 'promisify').mockReturnValue(mockExec);
 
       await expect(execAsync('test command')).rejects.toThrow(testError);
     });

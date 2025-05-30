@@ -11,7 +11,7 @@ describe('GitHub Module', () => {
   const mockExecAsync = jest.fn() as jest.MockedFunction<ExecFunction>;
   let mockLogger: Logger;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
 
     // Setup mock implementations
