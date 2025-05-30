@@ -71,7 +71,7 @@ git curate <target> [options]
 - Handles merge conflicts gracefully
 - Supports dry-run mode for testing
 - Configurable logging levels
-- Automated package building for multiple platforms
+- Support for running in CI/CD environments
 
 ## Contributing
 
