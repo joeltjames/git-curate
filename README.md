@@ -81,38 +81,6 @@ git-curate staging --base main --dry-run
 - Configurable logging levels
 - Automated package building for multiple platforms
 
-## Development
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   yarn install
-   ```
-3. Build the project:
-   ```bash
-   yarn build
-   ```
-4. Run tests:
-   ```bash
-   yarn test
-   ```
-5. Lint the code:
-   ```bash
-   yarn lint
-   ```
-6. Format the code:
-   ```bash
-   yarn format
-   ```
-7. Make commits using Commitizen:
-   ```bash
-   yarn commit
-   ```
-8. Package the executable:
-   ```bash
-   yarn package
-   ```
-
 ## Contributing
 
 This project uses semantic-release for versioning and automated releases. Please follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages to ensure proper versioning.
