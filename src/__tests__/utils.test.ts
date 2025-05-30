@@ -12,9 +12,12 @@ describe('Utils Module', () => {
 
   describe('execAsync', () => {
     it('should execute command and return stdout and stderr', async () => {
-      const mockExec = jest.fn<typeof execAsync>().mockResolvedValue({ stdout: 'test output', stderr: '' });
+      const mockExec = jest
+        .fn<typeof execAsync>()
+        .mockResolvedValue({ stdout: 'test output', stderr: '' });
       const mockPromisify = jest.fn().mockReturnValue(mockExec);
-      jest.spyOn(require('util'), 'promisify').mockImplementation(mockPromisify);
+      const util = await import('util');
+      jest.spyOn(util, 'promisify').mockImplementation(mockPromisify);
 
       const result = await execAsync('test command');
 
@@ -26,9 +29,10 @@ describe('Utils Module', () => {
       const testError = new Error('Command failed');
       const mockExec = jest.fn<typeof execAsync>().mockRejectedValue(testError);
       const mockPromisify = jest.fn().mockReturnValue(mockExec);
-      jest.spyOn(require('util'), 'promisify').mockImplementation(mockPromisify);
+      const util = await import('util');
+      jest.spyOn(util, 'promisify').mockImplementation(mockPromisify);
 
       await expect(execAsync('test command')).rejects.toThrow(testError);
     });
   });
-}); 
+});

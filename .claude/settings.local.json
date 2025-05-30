@@ -16,7 +16,13 @@
       "Bash(grep:*)",
       "Bash(cat:*)",
       "Bash(yarn build)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(yarn lint)",
+      "Bash(yarn format:check)",
+      "Bash(yarn lint:*)",
+      "Bash(yarn format)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   },
   "enableAllProjectMcpServers": false

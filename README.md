@@ -40,7 +40,9 @@ git-curate <target> [options]
 
 - `--base <branch>` - Base branch to reset from (default: main)
 - `--dry-run` - Show actions without executing
-- `--log-level <level>` - Set the logging level (error, warn, info, debug)
+- `-v, --verbose` - Enable verbose logging output
+- `--include-drafts` - Include draft pull requests in the selection
+- `--auto-push` - Automatically push changes after merging PRs
 - `--help` - Display help information
 - `--version` - Display version information
 
@@ -58,6 +60,7 @@ git-curate staging --base main --dry-run
 - Handles merge conflicts gracefully
 - Supports dry-run mode for testing
 - Configurable logging levels
+- Automated package building for multiple platforms
 
 ## Development
 
@@ -70,10 +73,40 @@ git-curate staging --base main --dry-run
    ```bash
    yarn build
    ```
-4. Package the executable:
+4. Run tests:
+   ```bash
+   yarn test
+   ```
+5. Lint the code:
+   ```bash
+   yarn lint
+   ```
+6. Format the code:
+   ```bash
+   yarn format
+   ```
+7. Make commits using Commitizen:
+   ```bash
+   yarn commit
+   ```
+8. Package the executable:
    ```bash
    yarn package
    ```
+
+## Contributing
+
+This project uses semantic-release for versioning and automated releases. Please follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages to ensure proper versioning.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+## Code Quality
+
+This project uses:
+- **ESLint** - For code quality and style checks
+- **Prettier** - For consistent code formatting
+- **TypeScript** - For type safety
+- **Jest** - For testing
 
 ## License
 

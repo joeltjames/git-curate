@@ -1,6 +1,11 @@
 import { Logger } from './logger';
 import { execAsync, ExecFunction } from './utils';
-import { SelectFunction, WaitForEnterFunction, selectPrompt as defaultSelectPrompt, waitForEnter as defaultWaitForEnter } from './interactions';
+import {
+  SelectFunction,
+  WaitForEnterFunction,
+  selectPrompt as defaultSelectPrompt,
+  waitForEnter as defaultWaitForEnter,
+} from './interactions';
 
 // Export the interface for test mocking and other uses
 export type { SelectFunction, WaitForEnterFunction };
@@ -12,9 +17,9 @@ export interface MergeConflictResult {
 }
 
 export async function resetBranch(
-  target: string, 
-  base: string, 
-  dryRun: boolean, 
+  target: string,
+  base: string,
+  dryRun: boolean,
   logger: Logger,
   exec: ExecFunction = execAsync
 ): Promise<void> {
@@ -39,8 +44,8 @@ export async function resetBranch(
 }
 
 export async function handleMergeConflict(
-  branch: string, 
-  logger: Logger, 
+  branch: string,
+  logger: Logger,
   select: SelectFunction = defaultSelectPrompt,
   waitForEnter: WaitForEnterFunction = defaultWaitForEnter,
   exec: ExecFunction = execAsync
@@ -53,19 +58,19 @@ export async function handleMergeConflict(
       {
         name: 'Fix conflicts and continue',
         value: 'continue',
-        description: 'Edit files to resolve conflicts'
+        description: 'Edit files to resolve conflicts',
       },
       {
         name: 'Skip this PR',
         value: 'skip',
-        description: 'Abort this merge and continue with next PR'
+        description: 'Abort this merge and continue with next PR',
       },
       {
         name: 'Abort entire process',
         value: 'abort',
-        description: 'Stop the entire curation process'
-      }
-    ]
+        description: 'Stop the entire curation process',
+      },
+    ],
   });
 
   if (action === 'continue') {
@@ -74,24 +79,28 @@ export async function handleMergeConflict(
     logger.complete('  2. Run: git add <fixed-files>');
     logger.complete('  3. Run: git commit -m "Resolve merge conflicts"');
     logger.complete('\nPress enter when done...');
-    
+
     await waitForEnter();
-    
+
     try {
       const { stdout: mergeState } = await exec('git rev-parse --git-dir');
       const mergeHeadPath = `${mergeState.trim()}/MERGE_HEAD`;
-      const mergeInProgress = await exec(`test -f ${mergeHeadPath}`).then(() => true).catch(() => false);
-      
+      const mergeInProgress = await exec(`test -f ${mergeHeadPath}`)
+        .then(() => true)
+        .catch(() => false);
+
       if (mergeInProgress) {
         logger.info('Completing merge...');
         await exec('git commit -m "Resolve merge conflicts"');
       }
-      
+
       // Check if conflicts were resolved
       await exec('git diff --check');
       return { action: 'continue' };
     } catch (error) {
-      logger.error('There are still unresolved conflicts. Please fix them or choose another option.');
+      logger.error(
+        'There are still unresolved conflicts. Please fix them or choose another option.'
+      );
       return handleMergeConflict(branch, logger, select, waitForEnter, exec);
     }
   }
@@ -108,15 +117,15 @@ export async function handleMergeConflict(
 }
 
 export async function mergePR(
-  branch: string, 
-  dryRun: boolean, 
+  branch: string,
+  dryRun: boolean,
   logger: Logger,
   exec: ExecFunction = execAsync,
   handleConflict: (
-    branch: string, 
-    logger: Logger, 
-    select?: SelectFunction, 
-    waitForEnter?: WaitForEnterFunction, 
+    branch: string,
+    logger: Logger,
+    select?: SelectFunction,
+    waitForEnter?: WaitForEnterFunction,
     exec?: ExecFunction
   ) => Promise<MergeConflictResult> = handleMergeConflict
 ): Promise<boolean | { aborted: true }> {

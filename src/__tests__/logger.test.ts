@@ -11,14 +11,14 @@ describe('Logger Module', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Setup mock spinner
     mockSpinner = {
       stop: jest.fn(),
       start: jest.fn(),
-      setSpinnerString: jest.fn()
+      setSpinnerString: jest.fn(),
     } as unknown as jest.Mocked<Spinner>;
-    
+
     (Spinner as jest.MockedClass<typeof Spinner>).mockImplementation(() => mockSpinner);
 
     // Setup console mocks
@@ -49,8 +49,8 @@ describe('Logger Module', () => {
       });
 
       it('should create and manage task spinner', () => {
-        const task = logger.task('Test task');
-        
+        const _task = logger.task('Test task');
+
         expect(Spinner).toHaveBeenCalledWith({ text: 'Test task' });
         expect(mockSpinner.setSpinnerString).toHaveBeenCalledWith(20);
         expect(mockSpinner.start).toHaveBeenCalled();
@@ -59,7 +59,7 @@ describe('Logger Module', () => {
       it('should complete task with original message', () => {
         const task = logger.task('Test task');
         task.complete();
-        
+
         expect(mockSpinner.stop).toHaveBeenCalledWith(true);
         expect(console.log).toHaveBeenCalledWith('✅ Test task');
       });
@@ -67,7 +67,7 @@ describe('Logger Module', () => {
       it('should complete task with custom message', () => {
         const task = logger.task('Test task');
         task.completeWithMessage('Custom message');
-        
+
         expect(mockSpinner.stop).toHaveBeenCalledWith(true);
         expect(console.log).toHaveBeenCalledWith('✅ Custom message');
       });
@@ -76,7 +76,7 @@ describe('Logger Module', () => {
         const task = logger.task('Test task');
         const error = new Error('Test error');
         task.fail(error);
-        
+
         expect(mockSpinner.stop).toHaveBeenCalledWith(true);
         expect(console.error).toHaveBeenCalledWith('✖ Test task', error);
       });
@@ -84,7 +84,7 @@ describe('Logger Module', () => {
       it('should fail task without error', () => {
         const task = logger.task('Test task');
         task.fail();
-        
+
         expect(mockSpinner.stop).toHaveBeenCalledWith(true);
         expect(console.error).toHaveBeenCalledWith('✖ Test task', '');
       });
@@ -111,9 +111,9 @@ describe('Logger Module', () => {
       });
 
       it('should still create and manage task spinner', () => {
-        const task = logger.task('Test task');
+        const _task = logger.task('Test task');
         expect(Spinner).toHaveBeenCalledWith({ text: 'Test task' });
       });
     });
   });
-}); 
+});

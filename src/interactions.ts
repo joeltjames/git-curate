@@ -5,9 +5,9 @@ import * as readline from 'readline';
 /**
  * Type for selection prompts
  */
-export type SelectFunction = <T extends string>(options: { 
-  message: string; 
-  choices: Array<{ name: string; value: T; description: string }> 
+export type SelectFunction = <T extends string>(options: {
+  message: string;
+  choices: Array<{ name: string; value: T; description: string }>;
 }) => Promise<T>;
 
 /**
@@ -19,7 +19,11 @@ export type CheckboxFunction = <T>(options: {
   pageSize?: number;
   loop?: boolean;
   prefix?: string;
-  validate?: (items: Array<Separator | { name?: string; value: T; disabled?: boolean | string; checked?: boolean }>) => boolean | string | Promise<boolean | string>;
+  validate?: (
+    items: Array<
+      Separator | { name?: string; value: T; disabled?: boolean | string; checked?: boolean }
+    >
+  ) => boolean | string | Promise<boolean | string>;
   choices: Array<{ name: string; value: T }>;
 }) => Promise<T[]>;
 
@@ -44,7 +48,7 @@ export const checkboxPrompt: CheckboxFunction = inquirerCheckbox as unknown as C
 export const waitForEnter: WaitForEnterFunction = (): Promise<void> => {
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
   return new Promise<void>(resolve => {

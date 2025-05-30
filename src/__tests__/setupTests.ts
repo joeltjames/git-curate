@@ -1,4 +1,4 @@
-import type { Logger, CompletableTask } from '../logger';
+import type { Logger, _CompletableTask } from '../logger';
 import { jest } from '@jest/globals';
 
 // Mock modules that are used in tests
@@ -23,13 +23,14 @@ jest.mock('@inquirer/prompts', () => ({
 }));
 
 // Create a reusable mock logger
-export const createMockLogger = (): Logger => ({
-  info: jest.fn(),
-  error: jest.fn(),
-  complete: jest.fn(),
-  task: jest.fn().mockImplementation(() => ({
+export const createMockLogger = (): Logger =>
+  ({
+    info: jest.fn(),
+    error: jest.fn(),
     complete: jest.fn(),
-    completeWithMessage: jest.fn(),
-    fail: jest.fn()
-  }))
-}) as unknown as Logger;
+    task: jest.fn().mockImplementation(() => ({
+      complete: jest.fn(),
+      completeWithMessage: jest.fn(),
+      fail: jest.fn(),
+    })),
+  }) as unknown as Logger;

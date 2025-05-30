@@ -13,14 +13,15 @@ describe('Interactions Module', () => {
   describe('selectPrompt', () => {
     it('should call inquirer select with correct options', async () => {
       const mockSelect = jest.fn();
-      jest.spyOn(require('@inquirer/prompts'), 'select').mockImplementation(mockSelect);
+      const inquirer = await import('@inquirer/prompts');
+      jest.spyOn(inquirer, 'select').mockImplementation(mockSelect);
 
       const options = {
         message: 'Test message',
         choices: [
           { name: 'Option 1', value: 'opt1', description: 'Description 1' },
-          { name: 'Option 2', value: 'opt2', description: 'Description 2' }
-        ]
+          { name: 'Option 2', value: 'opt2', description: 'Description 2' },
+        ],
       };
 
       await selectPrompt(options);
@@ -32,14 +33,15 @@ describe('Interactions Module', () => {
   describe('checkboxPrompt', () => {
     it('should call inquirer checkbox with correct options', async () => {
       const mockCheckbox = jest.fn();
-      jest.spyOn(require('@inquirer/prompts'), 'checkbox').mockImplementation(mockCheckbox);
+      const inquirer = await import('@inquirer/prompts');
+      jest.spyOn(inquirer, 'checkbox').mockImplementation(mockCheckbox);
 
       const options = {
         message: 'Test message',
         choices: [
           { name: 'Option 1', value: 'opt1' },
-          { name: 'Option 2', value: 'opt2' }
-        ]
+          { name: 'Option 2', value: 'opt2' },
+        ],
       };
 
       await checkboxPrompt(options);
@@ -49,22 +51,25 @@ describe('Interactions Module', () => {
 
     it('should handle validation function', async () => {
       const mockCheckbox = jest.fn();
-      jest.spyOn(require('@inquirer/prompts'), 'checkbox').mockImplementation(mockCheckbox);
+      const inquirer = await import('@inquirer/prompts');
+      jest.spyOn(inquirer, 'checkbox').mockImplementation(mockCheckbox);
 
       const options = {
         message: 'Test message',
         choices: [
           { name: 'Option 1', value: 'opt1' },
-          { name: 'Option 2', value: 'opt2' }
+          { name: 'Option 2', value: 'opt2' },
         ],
-        validate: () => true
+        validate: () => true,
       };
 
       await checkboxPrompt(options);
 
-      expect(mockCheckbox).toHaveBeenCalledWith(expect.objectContaining({
-        validate: expect.any(Function)
-      }));
+      expect(mockCheckbox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          validate: expect.any(Function),
+        })
+      );
     });
   });
 
@@ -74,19 +79,20 @@ describe('Interactions Module', () => {
       const mockClose = jest.fn();
       const mockCreateInterface = jest.fn().mockReturnValue({
         question: mockQuestion,
-        close: mockClose
+        close: mockClose,
       });
 
-      jest.spyOn(require('readline'), 'createInterface').mockImplementation(mockCreateInterface);
+      const readline = await import('readline');
+      jest.spyOn(readline, 'createInterface').mockImplementation(mockCreateInterface);
 
       await waitForEnter();
 
       expect(mockCreateInterface).toHaveBeenCalledWith({
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
       });
       expect(mockQuestion).toHaveBeenCalledWith('', expect.any(Function));
       expect(mockClose).toHaveBeenCalled();
     });
   });
-}); 
+});

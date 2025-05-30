@@ -9,8 +9,8 @@ function formatPRTitle(pr: PullRequest): string {
 }
 
 async function selectPRs(
-  prs: PullRequest[], 
-  logger: Logger, 
+  prs: PullRequest[],
+  logger: Logger,
   checkbox: CheckboxFunction = checkboxPrompt
 ): Promise<PullRequest[]> {
   try {
@@ -20,7 +20,7 @@ async function selectPRs(
       pageSize: 10,
       loop: true,
       prefix: '',
-      validate: (value) => {
+      validate: value => {
         if (value.length === 0) {
           return 'Please select at least one PR or press Ctrl+C to quit';
         }
@@ -28,8 +28,8 @@ async function selectPRs(
       },
       choices: prs.map(pr => ({
         name: formatPRTitle(pr),
-        value: pr
-      }))
+        value: pr,
+      })),
     });
 
     return selected;
@@ -104,4 +104,4 @@ export async function curateBranch(
     logger.error('Failed:', error);
     throw error;
   }
-} 
+}

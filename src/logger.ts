@@ -40,7 +40,7 @@ export function configureLogger(verbose: boolean): Logger {
       });
       spinner.setSpinnerString(20);
       spinner.start();
-      
+
       return {
         complete: () => {
           stopSpinner();
@@ -53,14 +53,14 @@ export function configureLogger(verbose: boolean): Logger {
         fail: (error?: unknown) => {
           stopSpinner();
           console.error(`✖ ${message}`, error ? error : '');
-        }
+        },
       };
     },
     complete: (message: string) => {
       stopSpinner();
       console.log(`✅ ${message}`);
-    }
+    },
   };
-  
+
   return logger;
-} 
+}
