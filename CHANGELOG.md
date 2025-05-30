@@ -1,0 +1,12 @@
+# 1.0.0 (2025-05-30)
+
+
+### Bug Fixes
+
+* make test suite pass with improved test timeouts ([b4fe1c5](https://github.com/joeltjames/git-curate/commit/b4fe1c58c530f049ad94c370a6145751cb4ad90d))
+* remove binary packaging from release process ([6caf170](https://github.com/joeltjames/git-curate/commit/6caf170581eb7644d5e9197c24d1f2c726ca4ef1))
+
+
+### Features
+
+* add ESLint, Prettier, and semantic-release automation ([4761526](https://github.com/joeltjames/git-curate/commit/47615261689657de8eb32ed8ec946149179f74e4))
