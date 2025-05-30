@@ -1,6 +1,6 @@
 {
   "name": "git-curate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI tool for curating Git branches and managing PRs",
   "main": "dist/index.js",
   "bin": {
